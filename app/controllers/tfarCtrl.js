@@ -7,7 +7,7 @@ angular.module('App').controller('tfarCtrl', ['$scope', '$rootScope', ($scope) =
         file: file
       })
     } else {
-      alertify.log('Download läuft bereits', 'danger')
+      alertify.log('Download is already running', 'danger')
     }
   }
 
@@ -23,9 +23,9 @@ angular.module('App').controller('tfarCtrl', ['$scope', '$rootScope', ($scope) =
         $scope.fileSpeed = 0
         $scope.fileDownloading = false
         $scope.$apply()
-        alertify.log('Wird ausgeführt...', 'primary')
+        alertify.log('Is running', 'primary')
         if (!shell.openItem(args.filePath)) {
-          alertify.log('Fehlgeschlagen', 'danger')
+          alertify.log('Failed', 'danger')
           let stream = fs.createReadStream(args.filePath).pipe(unzip.Extract({path: app.getPath('downloads') + '\\ReallifeRPG'}))
           stream.on('close', () => {
             try {

@@ -5,13 +5,13 @@ angular.module('App').controller('navbarCtrl', ['$scope', '$rootScope', ($scope,
     }, {
       icon: 'glyphicon glyphicon-tasks', title: 'Server', tag: 'serversTabBtn'
     }, {
-      icon: 'fa fa-user-circle-o', title: 'Spieler', tag: 'playerTabBtn'
+      icon: 'fa fa-user-circle-o', title: 'Profile', tag: 'playerTabBtn'
     }, {
       icon: 'glyphicon glyphicon-list-alt', title: 'Changelog', tag: 'changelogTabBtn'
     }, {
       icon: 'glyphicon glyphicon-headphones', title: 'TFAR', tag: 'tfarTabBtn'
     }, {
-      icon: 'glyphicon glyphicon-cog', title: 'Einstellungen', tag: 'settingsTabBtn'
+      icon: 'glyphicon glyphicon-cog', title: 'Settings', tag: 'settingsTabBtn'
     }, {
       icon: 'glyphicon glyphicon-question-sign', title: 'FAQ', tag: 'faqTabBtn'
     }, {
@@ -19,7 +19,7 @@ angular.module('App').controller('navbarCtrl', ['$scope', '$rootScope', ($scope,
     }, {
       icon: 'glyphicon glyphicon-map-marker', title: 'Map', tag: 'mapTabBtn'
     }, {
-      icon: 'glyphicon glyphicon-book', title: 'Über', tag: 'aboutTabBtn'
+      icon: 'glyphicon glyphicon-book', title: 'About', tag: 'aboutTabBtn'
     }]
 
   $scope.switchSlide = (tab) => {
@@ -31,10 +31,10 @@ angular.module('App').controller('navbarCtrl', ['$scope', '$rootScope', ($scope,
       $('#carousel-main').carousel($rootScope.slide)
       if (typeof process.env.PORTABLE_EXECUTABLE_DIR !== 'undefined') {
         $rootScope.portable = true
-        $rootScope.AppTitle = 'RealLifeRPG Launcher - ' + app.getVersion() + ' Portable - ' + $scope.tabs[$rootScope.slide].title
+        $rootScope.AppTitle = 'PsisynLife Launcher - ' + app.getVersion() + ' Portable - ' + $scope.tabs[$rootScope.slide].title
       } else {
         $rootScope.portable = false
-        $rootScope.AppTitle = 'RealLifeRPG Launcher - ' + app.getVersion() + ' - ' + $scope.tabs[$rootScope.slide].title
+        $rootScope.AppTitle = 'PsisynLife Launcher - ' + app.getVersion() + ' - ' + $scope.tabs[$rootScope.slide].title
       }
       if ($rootScope.map) {
         $rootScope.map.invalidateSize(false)

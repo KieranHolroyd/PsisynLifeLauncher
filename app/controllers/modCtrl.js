@@ -1,6 +1,6 @@
 angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $rootScope) => {
-  $scope.state = 'Gestoppt'
-  $scope.hint = 'Inaktiv'
+  $scope.state = 'Stopped'
+  $scope.hint = 'Inactive'
   $rootScope.downloading = false
   $scope.canCancel = false
   $rootScope.downSpeed = 0
@@ -25,8 +25,8 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
         break
       case 'update-dl-progress-server':
         $scope.update({
-          state: 'Server - Verbunden',
-          hint: 'Download via Server läuft',
+          state: 'Server - Connected',
+          hint: 'Download via server is running',
           downloading: true,
           canCancel: true,
           downSpeed: prettyBytes(args.state.speed),
@@ -48,8 +48,8 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
         break
       case 'update-dl-progress-server-bisign':
         $scope.update({
-          state: 'Server - Verbunden',
-          hint: 'Download via Server läuft',
+          state: 'Server - Connected',
+          hint: 'Download via server is running',
           downloading: true,
           canCancel: true,
           downSpeed: 0,
@@ -68,8 +68,8 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
         break
       case 'update-dl-progress-torrent':
         $scope.update({
-          state: 'Torrent - Verbunden',
-          hint: 'Download via Torrent läuft',
+          state: 'Torrent - Connected',
+          hint: 'Download via Torrent running',
           downloading: true,
           canCancel: true,
           downSpeed: prettyBytes(args.state.torrentDownloadSpeedState),
@@ -88,8 +88,8 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
         break
       case 'update-chickcheck-progress':
         $scope.update({
-          state: 'Versionsunterschiede werden bestimmt...',
-          hint: 'Prüfe Dateien',
+          state: 'Version differences are being determined',
+          hint: 'Checking files to determine what mods you require.',
           downloading: true,
           canCancel: false,
           downSpeed: 0,
@@ -123,8 +123,8 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
         break
       case 'torrent-init':
         $scope.update({
-          state: 'Torrent - Verbinden...',
-          hint: '5 - 10 Minuten',
+          state: 'Torrent - Connected',
+          hint: '5 - 10 Minutes',
           downloading: true,
           canCancel: false,
           downSpeed: 0,
@@ -159,8 +159,8 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
         break
       case 'update-hash-progress':
         $scope.update({
-          state: 'Überprüfung - Läuft',
-          hint: '5 - 10 Minuten',
+          state: 'Check - Running',
+          hint: '5 - 10 Minutes',
           downloading: true,
           canCancel: true,
           downSpeed: 0,
@@ -177,7 +177,7 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
         break
       case 'update-hash-progress-done':
         $scope.update({
-          state: 'Überprüfung - Abgeschlossen',
+          state: 'Check - Completed',
           hint: '',
           downloading: false,
           canCancel: true,
@@ -200,7 +200,7 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
           if (size > 100000000) {
             if (args.mod.Torrent !== '' && args.mod.Torrent !== null) {
               alertify.set({labels: {ok: 'Torrent', cancel: 'Server'}})
-              alertify.confirm(args.list.length + ' Dateien müssen heruntergelanden werden (' + prettyBytes(size) + ')', (e) => {
+              alertify.confirm(args.list.length + ' Files need to be downloaded (' + prettyBytes(size) + ')', (e) => {
                 if (e) {
                   $scope.reset()
                   $scope.initListDownload(args.list, true, args.mod)
@@ -215,17 +215,17 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
           } else {
             $scope.initListDownload(args.list, false, args.mod)
           }
-          helpers.spawnNotification(args.list.length + ' Dateien müssen heruntergelanden werden (' + prettyBytes(size) + ')')
+          helpers.spawnNotification(args.list.length + ' Files need to be downloaded (' + prettyBytes(size) + ')')
           $scope.$apply()
         } else {
-          helpers.spawnNotification('Überprüfung abgeschlossen - Mod ist aktuell.')
+          helpers.spawnNotification('Review completed - Mod is up to date.')
           $scope.reset()
         }
         break
       case 'update-torrent-progress-init':
         $scope.update({
-          state: 'Torrent - Verbinden',
-          hint: '5 - 10 Minuten',
+          state: 'Torrent - Connect',
+          hint: '5 - 10 Minutes',
           downloading: true,
           canCancel: true,
           downSpeed: 0,
@@ -241,9 +241,9 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
         })
         break
       case 'update-dl-progress-done':
-        $scope.state = 'Abgeschlossen'
+        $scope.state = 'Completed'
         $scope.progress = 100
-        helpers.spawnNotification('Download abgeschlossen.')
+        helpers.spawnNotification('Download Completed.')
         $scope.reset()
         $scope.checkUpdates()
         break
@@ -253,7 +253,7 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
         break
       case 'notification-callback':
         if (args.data.Active) {
-          alertify.set({labels: {ok: 'Schließen'}})
+          alertify.set({labels: {ok: 'Conclude'}})
           alertify.alert(args.data.Notification)
         }
         break
@@ -261,11 +261,11 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
         $scope.mods.forEach((mod) => {
           if (mod.Id === args.mod.Id) {
             if (args.update === 0) {
-              mod.state = [1, 'Downloaden']
+              mod.state = [1, 'Download']
             } else if (args.update === 1) {
-              mod.state = [2, 'Update verfügbar']
+              mod.state = [2, 'Update Available']
             } else {
-              mod.state = [3, 'Spielen']
+              mod.state = [3, 'Play']
             }
           }
         })
@@ -276,7 +276,7 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
 
   $scope.reset = () => {
     $scope.update({
-      state: 'Gestoppt',
+      state: 'Stopped',
       hint: '',
       downloading: false,
       canCancel: false,
@@ -305,7 +305,7 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
   }
 
   $scope.initTorrent = (mod) => {
-    alertify.log('Seeding wird gestartet', 'primary')
+    alertify.log('Seeding started', 'primary')
     ipcRenderer.send('to-dwn', {
       type: 'start-mod-seed',
       mod: mod,
@@ -314,7 +314,7 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
   }
 
   $scope.initDownload = (mod) => {
-    alertify.log('Download wird gestartet', 'primary')
+    alertify.log('Download started', 'primary')
     ipcRenderer.send('to-dwn', {
       type: 'start-mod-dwn',
       mod: mod,
@@ -323,7 +323,7 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
   }
 
   $scope.initHash = (mod) => {
-    alertify.log('Überprüfung wird gestartet', 'primary')
+    alertify.log('Check started', 'primary')
     ipcRenderer.send('to-dwn', {
       type: 'start-mod-hash',
       mod: mod,
@@ -332,7 +332,7 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
   }
 
   $scope.initUpdate = (mod) => {
-    alertify.log('Update wird gestartet', 'primary')
+    alertify.log('Update started', 'primary')
     ipcRenderer.send('to-dwn', {
       type: 'start-mod-update',
       mod: mod,
@@ -342,7 +342,7 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
 
   $scope.initListDownload = (list, torrent, mod) => {
     $scope.update({
-      state: 'Download wird gestarted...',
+      state: 'Download is starting ...',
       hint: '',
       downloading: true,
       canCancel: true,
@@ -466,7 +466,7 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
   }
 
   $scope.cancel = () => {
-    alertify.log('Wird abgebrochen...', 'primary')
+    alertify.log('Cancelled', 'primary')
     ipcRenderer.send('to-dwn', {
       type: 'cancel'
     })
@@ -505,8 +505,8 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
     $scope.maxConns = update.maxConns
     $scope.fileName = update.fileName
     $scope.fileProgress = update.fileProgress
-    if (update.totalETA === 'Infinity Jahre') {
-      $scope.totalETA = 'Berechne...'
+    if (update.totalETA === 'Infinity Years') {
+      $scope.totalETA = 'Computing...'
     } else {
       $scope.totalETA = update.totalETA
     }
@@ -554,25 +554,25 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
     $scope.mods.forEach((mod) => {
       if (mod.HasGameFiles) {
         if ($rootScope.ArmaPath) {
-          mod.state = [0, 'Suche nach Updates...']
+          mod.state = [0, 'Search for updates...']
           ipcRenderer.send('to-dwn', {
             type: 'start-mod-quickcheck',
             mod: mod,
             path: $rootScope.ArmaPath
           })
         } else {
-          mod.state = [0, 'Kein Pfad gesetzt']
+          mod.state = [0, 'No path set']
         }
       } else {
-        mod.state = [3, 'Spielen']
+        mod.state = [3, 'Play']
       }
     })
   }
 
   $scope.savePath = (path) => {
     if (path !== false) {
-      alertify.set({labels: {ok: 'Richtig', cancel: 'Falsch'}})
-      alertify.confirm('Möglicher Arma Pfad gefunden: ' + path, (e) => {
+      alertify.set({labels: {ok: 'Correct', cancel: 'Incorrect'}})
+      alertify.confirm('Possible Arma path found: ' + path, (e) => {
         if (e) {
           $rootScope.ArmaPath = path + '\\'
           storage.set('settings', {armapath: $rootScope.ArmaPath}, (err) => {
@@ -581,11 +581,11 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
           $rootScope.getMods()
         } else {
           $rootScope.slide = 5
-          alertify.log('Bitte wähle deine Arma Pfad aus', 'primary')
+          alertify.log('Please select your Arma path', 'primary')
         }
       })
     } else {
-      alertify.log('Kein Arma Pfad gefunden', 'danger')
+      alertify.log('No arma path found', 'danger')
     }
   }
 

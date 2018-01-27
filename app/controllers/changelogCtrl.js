@@ -5,7 +5,6 @@ angular.module('App').controller('changelogCtrl', ['$scope', ($scope) => {
         $scope.changelogs = args.data.data
         $scope.loading = false
         $scope.$apply()
-        $('#changelogScroll').perfectScrollbar({wheelSpeed: 0.5})
         break
     }
   })

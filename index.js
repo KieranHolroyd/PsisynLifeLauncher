@@ -3,7 +3,7 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
   $rootScope.AppLoaded = true
   $rootScope.ArmaPath = ''
   $rootScope.slide = 0
-  $rootScope.theme = 'dark'
+  $rootScope.theme = 'light'
   $rootScope.updating = false
   $rootScope.update_ready = false
   $rootScope.player_data = null
@@ -14,10 +14,10 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
 
   if (typeof process.env.PORTABLE_EXECUTABLE_DIR !== 'undefined') {
     $rootScope.portable = true
-    $rootScope.AppTitle = 'RealLifeRPG Launcher - ' + app.getVersion() + ' Portable - Mods'
+    $rootScope.AppTitle = 'Psisyn Life - ' + app.getVersion() + ' Portable - Mods'
   } else {
     $rootScope.portable = false
-    $rootScope.AppTitle = 'RealLifeRPG Launcher - ' + app.getVersion() + ' - Mods'
+    $rootScope.AppTitle = 'Psisyn Life - ' + app.getVersion() + ' - Mods'
   }
 
   storage.get('settings', (err, data) => {
@@ -77,7 +77,7 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
 
   $rootScope.login = () => {
     alertify.set({labels: {ok: 'Ok', cancel: 'Abbrechen'}})
-    alertify.prompt('Bitte füge deinen Login-Schlüssel ein', (e, str) => {
+    alertify.prompt('Please insert your login key', (e, str) => {
       if (e) {
         if (str) {
           $.ajax({
@@ -85,7 +85,7 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
             type: 'GET',
             success: (data) => {
               if (data.status === 'Success') {
-                alertify.success('Willkommen ' + data.name)
+                alertify.success('Welcome ' + data.name)
                 storage.set('player', {apikey: str}, (err) => {
                   if (err) throw err
                 })
@@ -95,7 +95,7 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
                 $rootScope.$apply()
               } else {
                 $rootScope.login()
-                alertify.log('Falscher Schlüssel', 'danger')
+                alertify.log('Wrong key', 'danger')
                 $rootScope.login()
               }
             }
@@ -123,7 +123,7 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
   $rootScope.getMods = () => {
     let url = config.APIBaseURL + config.APIModsURL
     if ($rootScope.logged_in) {
-      url += '/' + $rootScope.apiKey
+      url += '/' + $rootScope.apiKey;
     }
     ipcRenderer.send('to-web', {
       type: 'get-url',
@@ -160,26 +160,26 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
   })
 
   ipcRenderer.on('checking-for-update', () => {
-    alertify.log('Suche nach Updates...', 'primary')
+    alertify.log('Search for updates ...', 'primary')
     $rootScope.updating = true
     $rootScope.$apply()
   })
 
   ipcRenderer.on('update-not-available', () => {
-    alertify.log('Launcher ist aktuell', 'primary')
+    alertify.log('Launcher is up to date', 'primary')
     $rootScope.updating = false
     $rootScope.$apply()
   })
 
   ipcRenderer.on('update-available', () => {
-    helpers.spawnNotification('Update verfügbar, wird geladen...')
-    alertify.log('Update verfügbar, wird geladen...', 'primary')
+    helpers.spawnNotification('Update available, loading ...')
+    alertify.log('Update available, loading ...', 'primary')
     $rootScope.updating = true
     $rootScope.$apply()
   })
 
   ipcRenderer.on('update-downloaded', (event, args) => {
-    helpers.spawnNotification('Update zur Version ' + args.releaseName + ' bereit.')
+    helpers.spawnNotification('Update to the version ' + args.releaseName + ' ready.')
     $rootScope.updating = false
     $rootScope.update_ready = true
     $rootScope.$apply()
@@ -193,24 +193,24 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
     })
 
     $rootScope.tour.addStep('start', {
-      title: 'Willkommen',
-      text: 'Hallo! Du hast dir gerade unseren Launcher geladen, wir wollen dich auf eine kleine Tour einladen um dich mit ihm vetraut zu machen.',
+      title: 'Welcome',
+      text: 'Hello! You have just loaded our launcher, we want to invite you on a short tour to make you familiar with it.',
       buttons: [{
-        text: 'Nein Danke',
+        text: 'No thanks',
         classes: 'shepherd-button-secondary',
         action: $rootScope.endTour
       }, {
-        text: 'Weiter',
+        text: 'Continue',
         action: $rootScope.tour.next
       }]
     })
 
     $rootScope.tour.addStep('mods', {
       title: 'Mods',
-      text: 'Hier kannst du unsere Mods downloaden und prüfen sowie das Spiel starten.',
+      text: 'Here you can download and check our mods and start the game.',
       attachTo: '.modsTabBtn bottom',
       buttons: {
-        text: 'Weiter',
+        text: 'Continue',
         action: $rootScope.tour.next
       },
       when: {
@@ -223,10 +223,10 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
 
     $rootScope.tour.addStep('servers', {
       title: 'Server',
-      text: 'Hier findest du alle unsere Server und Informationen zu ihnen, auch kannst du von diesem Tab direkt auf einen Server joinen.',
+      text: 'Here you can find all our servers and information about them, also you can join from this tab directly to a server.',
       attachTo: '.serversTabBtn bottom',
       buttons: {
-        text: 'Weiter',
+        text: 'Continue',
         action: $rootScope.tour.next
       },
       when: {
@@ -238,11 +238,11 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
     })
 
     $rootScope.tour.addStep('player', {
-      title: 'Spieler',
-      text: 'Nachdem du dich eingeloggt hast findest du hier deine Spielerdaten.',
+      title: 'Profile',
+      text: 'After you have logged in you will find your player data here.',
       attachTo: '.playerTabBtn bottom',
       buttons: {
-        text: 'Weiter',
+        text: 'Continue',
         action: $rootScope.tour.next
       },
       when: {
@@ -255,10 +255,10 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
 
     $rootScope.tour.addStep('changelog', {
       title: 'Changelog',
-      text: 'Hier findest du immer alle Änderungen an der Mission, der Map und den Mods.',
+      text: 'Here you will always find all changes to the mission, the map and the mods.',
       attachTo: '.changelogTabBtn bottom',
       buttons: {
-        text: 'Weiter',
+        text: 'Continue',
         action: $rootScope.tour.next
       },
       when: {
@@ -271,10 +271,10 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
 
     $rootScope.tour.addStep('tfar', {
       title: 'Task Force Radio',
-      text: 'Hier kannst du das Task Force Radio Plugin für deinen Teamspeak 3 Client installieren, sowie einen Skin der im ReallifeRPG Stil gehalten ist.',
+      text: 'Here you can install the Task Force Radio Plugin for your Teamspeak 3 client, as well as a skin that is in ReallifeRPG style.',
       attachTo: '.tfarTabBtn bottom',
       buttons: {
-        text: 'Weiter',
+        text: 'Continue',
         action: $rootScope.tour.next
       },
       when: {
@@ -286,11 +286,11 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
     })
 
     $rootScope.tour.addStep('settings', {
-      title: 'Einstellungen',
-      text: 'Hier findest du Einstellungen wie den Arma 3 Pfad, CPU Anzahl, Theme des Launchers und vieles mehr.',
+      title: 'Settings',
+      text: 'Here you will find settings such as the Arma 3 path, CPU number, launcher theme and much more.',
       attachTo: '.settingsTabBtn bottom',
       buttons: {
-        text: 'Weiter',
+        text: 'Continue',
         action: $rootScope.tour.next
       },
       when: {
@@ -303,10 +303,10 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
 
     $rootScope.tour.addStep('faq', {
       title: 'FAQ',
-      text: 'Hier werden viele oft gestellte Fragen direkt beantwortet. Schau kurz mal hier nach bevor du dich im Support meldest, vielleicht wird deine Frage ja direkt beantwortet.',
+      text: 'Here many frequently asked questions are answered directly. Look here for a moment before you get in support, maybe your question will be answered directly.',
       attachTo: '.faqTabBtn bottom',
       buttons: {
-        text: 'Weiter',
+        text: 'Continue',
         action: $rootScope.tour.next
       },
       when: {
@@ -318,11 +318,11 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
     })
 
     $rootScope.tour.addStep('Twitch', {
-      title: 'Über',
-      text: 'Hier findest du immer Streamer die gerade auf unserem Server spielen.',
+      title: 'Twitch',
+      text: 'Here you will always find streamers playing on our server.',
       attachTo: '.twitchTabBtn bottom',
       buttons: {
-        text: 'Weiter',
+        text: 'Continue',
         action: $rootScope.tour.next
       },
       when: {
@@ -334,11 +334,11 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
     })
 
     $rootScope.tour.addStep('map', {
-      title: 'Karte',
-      text: 'Hier findest du eine Karte von Abramia auf der du dir den Füllstand aller Tankstellen anzeigen lassen kannst.',
+      title: 'Map',
+      text: 'Here is a map of Nozaki Island where you can see the fill level of all gas stations.',
       attachTo: '.mapTabBtn bottom',
       buttons: {
-        text: 'Weiter',
+        text: 'Continue',
         action: $rootScope.tour.next
       },
       when: {
@@ -350,11 +350,11 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
     })
 
     $rootScope.tour.addStep('about', {
-      title: 'Über',
-      text: 'Hier kannst du allgemeine Informationen zum Launcher finden.',
+      title: 'About',
+      text: 'Here you can find general information about the launcher.',
       attachTo: '.aboutTabBtn bottom',
       buttons: {
-        text: 'Weiter',
+        text: 'Continue',
         action: $rootScope.tour.next
       },
       when: {
@@ -366,10 +366,10 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
     })
 
     $rootScope.tour.addStep('end', {
-      title: 'Viel Spaß!',
-      text: 'Genug gelesen, lad dir unseren Mod runter, installier Task Force Radio, betritt den Server und entdecke deine ganz eigene Weise auf ReallifeRPG zu spielen. Viel Spaß von unserem ganzen Team!',
+      title: 'Have Fun!',
+      text: 'Enough read, download our mod, install Task Force Radio, enter the server and discover your very own way to play PsisynRP.',
       buttons: {
-        text: 'Beenden',
+        text: 'End Tour',
         action: $rootScope.endTour
       },
       when: {

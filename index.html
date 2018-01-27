@@ -2,7 +2,7 @@
 <html ng-app="App">
 <head>
     <meta charset="UTF-8">
-    <title>RealLifeRPG Launcher</title>
+    <title>PsisynLife</title>
 
     <style>
         #app {
@@ -77,7 +77,7 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="https://realliferpg.de/">ReallifeRPG Launcher</a>
+                <a class="navbar-brand" href="https://psisyn.com/">PSISYNLIFE LAUNCHER</a>
             </div>
 
             <div ng-controller="navbarCtrl" class="collapse navbar-collapse" id="bs-navbar-collapse">
@@ -86,13 +86,11 @@
                         <a ng-click="switchSlide(tab)" title="{{tab.title}}"><span class="{{tab.icon}}"></span></a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ReallifeRPG <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="https://realliferpg.de" target="_blank">Website</a></li>
-                            <li><a href="https://forum.realliferpg.de" target="_blank">Forum</a></li>
-                            <li><a href="https://wiki.realliferpg.de" target="_blank">Wiki</a></li>
+                            <li><a href="https://psisyn.com" target="_blank">Website</a></li>
                             <li class="divider"></li>
-                            <li><a href="https://github.com/A3ReallifeRPG/" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/KieranHolroyd/PsisynLifeLauncher" target="_blank">Github</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -138,22 +136,22 @@
             </div>
         </div>
     </nav>
-    <div id="content" style="height: 100%" ng-cloak>
-        <div id="carousel-main" class="carousel slide" data-ride="carousel" style="height: 100%" data-interval="false">
+    <div id="content" ng-cloak>
+        <div id="carousel-main" class="carousel slide" data-ride="carousel" style="height: calc(100vh - 70px);" data-interval="false">
             <br>
             <br>
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
                     <div id="mods">
-                        <div class="container">
+                        <div style="padding: 0px 40px;">
                             <div ng-controller="modCtrl" data-ng-init="init()">
-                                <h3>ReallifeRPG Mods</h3>
+                                <h3>PsisynLife Mods</h3>
                                 <hr>
                                 <div class="page">
                                     <div class="row">
                                         <div class="col-lg-8" ng-show="loading">
                                             <div style="text-align: center">
-                                                <img src="resources/loading/cube.svg"/>
+                                                <img src="resources/loading/ring-alt.svg"/>
                                             </div>
                                         </div>
                                         <div id="modScroll" class="col-lg-8 modScroll" style="position: relative">
@@ -162,14 +160,11 @@
                                                     <div class="col-md-6" ng-repeat="mod in mods">
                                                         <div class="panel panel-primary">
                                                             <div class="panel-body" style="text-align: center">
-                                                                <img ng-src="{{mod.ImageUrl}}" width="320px">
-                                                                <hr>
-                                                                <h4 tooltips tooltip-template="{{mod.Description}}">{{mod.Name}}</h4>
-                                                                <hr>
+                                                                <img ng-src="{{mod.ImageUrl}}" width="320px"><br>
+                                                                <h4 tooltips tooltip-template="{{mod.Description}}">{{mod.Name}}</h4><br>
                                                                 <div class="btn-group btn-group-sm">
                                                                     <button class="btn btn-success btn-sm" ng-click="action(mod)" ng-disabled="downloading">{{mod.state[1]}}</button>
-                                                                    <button class="btn btn-warning btn-sm" ng-show="mod.state[0] !== 0 && mod.HasGameFiles" ng-click="initHash(mod)" ng-disabled="downloading">Prüfen</button>
-                                                                    <button class="btn btn-primary btn-sm" ng-show="mod.state[0] === 3 && mod.HasGameFiles && mod.Torrent !== '' && mod.Torrent !== null" ng-disabled="downloading" ng-click="initTorrent(mod)"><i class="fa fa-upload" aria-hidden="true"></i> Seeden</button>
+                                                                    <button class="btn btn-warning btn-sm" ng-show="mod.state[0] !== 0 && mod.HasGameFiles" ng-click="initHash(mod)" ng-disabled="downloading">Check Mods</button>
                                                                     <button class="btn btn-success btn-sm" ng-show="mod.state[0] !== 0 && mod.HasGameFiles" ng-click="openModDir(mod)"><span class=" glyphicon glyphicon-folder-open"></span></button>
                                                                 </div>
                                                             </div>
@@ -184,25 +179,22 @@
                                                     <b>Status</b> <a class="pull-right"><span tooltips tooltip-template="{{hint}}">{{state}}</span></a>
                                                 </li>
                                                 <li class="list-group-item" ng-if="downloading && downSpeed">
-                                                    <b>Geschwindigkeit</b> <a class="pull-right"><span tooltips tooltip-template="Download Geschwindigkeit">{{downSpeed}}/s</span></a>
-                                                </li>
-                                                <li class="list-group-item" ng-if="totalProgress !== ''">
-                                                    <b>Fortschritt</b> <a class="pull-right"><span tooltips tooltip-template="Gesamtfortschritt">{{totalProgress}} %</span></a>
+                                                    <b>Download Speed</b> <a class="pull-right"><span tooltips tooltip-template="Download Speed">{{downSpeed}}/s</span></a>
                                                 </li>
                                                 <li class="list-group-item" ng-if="totalSize">
-                                                    <b>Dateifortschritt</b> <a class="pull-right">{{totalDownloaded}}/{{totalSize}}</a>
+                                                    <b>Progress</b> <a class="pull-right"><span tooltips tooltip-template="{{totalProgress}} %">{{totalDownloaded}}/{{totalSize}}</span></a>
                                                 </li>
                                                 <li class="list-group-item" ng-if="totalETA !== ''">
-                                                    <b>Verbleibend</b> <a class="pull-right"><span tooltips tooltip-template="Zeit verbleibend">{{totalETA}}</span></a>
+                                                    <b>Time Left</b> <a class="pull-right"><span tooltips tooltip-template="Time Left">{{totalETA}}</span></a>
                                                 </li>
                                                 <li class="list-group-item" ng-if="maxConns > 0">
                                                     <b>Peers</b> <a class="pull-right">{{totalPeers}}/{{maxConns}}</a>
                                                 </li>
                                                 <li class="list-group-item" ng-if="fileSpeed">
-                                                    <b>Datei</b> <a class="pull-right">{{fileSpeed}} Mb/s</a>
+                                                    <b>File</b> <a class="pull-right">{{fileSpeed}} Mb/s</a>
                                                 </li>
                                                 <li class="list-group-item" ng-if="fileName !== ''">
-                                                    <b>Dateiname</b> <a class="pull-right">{{fileName}}</a>
+                                                    <b>Filename</b> <span class="pull-right">{{fileName}}</span>
                                                 </li>
                                                 <li class="list-group-item" ng-if="fileProgress > 0">
                                                     <div class="progress progress-striped active" style="margin-bottom: 0">
@@ -210,7 +202,7 @@
                                                     </div>
                                                 </li>
                                             </ul>
-                                            <button class="btn btn-danger pull-right btn-sm" style="margin-top: 10px" ng-if="downloading && canCancel" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span> Abbrechen</button>
+                                            <button class="btn btn-danger pull-right btn-sm" style="margin-top: 10px" ng-if="downloading && canCancel" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                                             <br>
                                         </div>
                                     </div>
@@ -232,7 +224,7 @@
                 </div>
                 <div class="item">
                     <div id="servers">
-                        <div class="container">
+                        <div style="padding: 0px 40px;">
                             <div class="row" ng-controller="serverCtrl" data-ng-init="init()">
                                 <h3>ReallifeRPG Server</h3>
                                 <hr>
@@ -329,7 +321,7 @@
                 </div>
                 <div class="item">
                     <div id="player">
-                        <div class="container" ng-controller="playerCtrl" data-ng-init="init()">
+                        <div style="padding: 0px 40px;" ng-controller="playerCtrl" data-ng-init="init()">
                             <div class="page" style="height: 600px;">
                                 <br>
                                 <div style="text-align: center" ng-if="!logged_in">
@@ -457,11 +449,11 @@
                 </div>
                 <div class="item">
                     <div id="changelog">
-                        <div class="container" ng-controller="changelogCtrl" data-ng-init="init()">
+                        <div style="padding: 0px 40px; overflow-x: auto;" ng-controller="changelogCtrl" data-ng-init="init()">
                             <h3>ReallifeRPG Changelog</h3>
                             <hr>
-                            <div class="page">
-                                <div class="row" id="changelogScroll" style="height: 450px;position: relative;">
+                            <div class="page mainDiv">
+                                <div class="row" id="changelogScroll">
                                     <div class="col-md-3">
                                         <div class="list-group">
                                             <a class="list-group-item" ng-repeat="changelog in changelogs" href="#{{changelog.id}}">{{changelog.version}} - {{changelog.release_at}}</a>
@@ -511,7 +503,7 @@
                 </div>
                 <div class="item">
                     <div id="tfar">
-                        <div class="container" ng-controller="tfarCtrl" data-ng-init="init()">
+                        <div class="mainDiv" style="padding: 0px 40px;" ng-controller="tfarCtrl" data-ng-init="init()">
                             <h3>Task Force Arma Radio</h3>
                             <hr>
                             <div class="page">
@@ -571,7 +563,7 @@
                 </div>
                 <div class="item">
                     <div id="settings">
-                        <div class="container" ng-controller="settingsCtrl" data-ng-init="init()">
+                        <div class="mainDiv" style="padding: 0px 40px;" ng-controller="settingsCtrl" data-ng-init="init()">
                             <h3>Einstellungen</h3>
                             <hr>
                             <div class="page">
@@ -669,7 +661,7 @@
                 </div>
                 <div class="item">
                     <div id="faq">
-                        <div class="container">
+                        <div class="mainDiv" style="padding: 0px 40px;">
                             <h3>FAQ</h3>
                             <hr>
                             <div class="page">
@@ -769,7 +761,7 @@
                 </div>
                 <div class="item">
                     <div id="twitch">
-                        <div class="container" ng-controller="twitchCtrl" data-ng-init="init()">
+                        <div class="mainDiv" style="padding: 0px 40px;" ng-controller="twitchCtrl" data-ng-init="init()">
                             <h3>Twitch</h3>
                             <hr>
                             <div class="page" style="position: relative;" id="twitchScroll">
@@ -816,7 +808,7 @@
                 </div>
                 <div class="item">
                     <div id="map">
-                        <div class="container" ng-controller="mapCtrl" data-ng-init="init()">
+                        <div class="mainDiv" style="padding: 0px 40px;" ng-controller="mapCtrl" data-ng-init="init()">
                             <h3>Map</h3>
                             <hr>
                             <div class="page">
@@ -827,7 +819,7 @@
                 </div>
                 <div class="item">
                     <div id="about">
-                        <div class="container" ng-controller="aboutCtrl" data-ng-init="init()">
+                        <div class="mainDiv" style="padding: 0px 40px;" ng-controller="aboutCtrl" data-ng-init="init()">
                             <h3>Über</h3>
                             <hr>
                             <div class="page" style="position: relative;" id="aboutScroll">

@@ -44,10 +44,10 @@ angular.module('App').controller('mapCtrl', ['$scope', '$rootScope', ($scope, $r
       })
     })
 
-    L.control.layers({
-      'Server 1 Tankstellen': L.layerGroup($scope.fuelstations[0].Markers),
-      'Server 2 Tankstellen': L.layerGroup($scope.fuelstations[1].Markers)
-    }).addTo($rootScope.map)
+    // L.control.layers({
+    //   'Server 1 Gas Stations': L.layerGroup($scope.fuelstations[0].Markers),
+    //   'Server 2 Gas Stations': L.layerGroup($scope.fuelstations[1].Markers)
+    // }).addTo($rootScope.map)
   }
 
   $scope.init = () => {
@@ -56,19 +56,19 @@ angular.module('App').controller('mapCtrl', ['$scope', '$rootScope', ($scope, $r
     let base = L.tileLayer('https://tiles.realliferpg.de/map/{z}/{x}/{y}.png', {
       minZoom: 1,
       maxZoom: 5,
-      attribution: '<a target="_blank" href="https://realliferpg.de">Havenborn Map by ReallifeRPG</a>',
+      attribution: '<a target="_blank" href="https://psisyn.com">Nozaki Island Map by PsisynLife</a>',
       tms: true
     })
     let sat = L.tileLayer('https://tiles.realliferpg.de/sat/{z}/{x}/{y}.png', {
       minZoom: 1,
       maxZoom: 5,
-      attribution: '<a target="_blank" href="https://realliferpg.de">Havenborn Map by ReallifeRPG</a>',
+      attribution: '<a target="_blank" href="https://psisyn.com">Nozaki Island Map by PsisynLife</a>',
       tms: true
     })
     let roads = L.tileLayer('https://tiles.realliferpg.de/roads/{z}/{x}/{y}.png', {
       minZoom: 1,
       maxZoom: 5,
-      attribution: '<a target="_blank" href="https://realliferpg.de">Havenborn Map by ReallifeRPG</a>',
+      attribution: '<a target="_blank" href="https://psisyn.com">Nozaki Island Map by PsisynLife</a>',
       tms: true
     })
 
@@ -77,12 +77,12 @@ angular.module('App').controller('mapCtrl', ['$scope', '$rootScope', ($scope, $r
     }).setView([0, 0], 1)
 
     let baseLayers = {
-      'Karte': base,
-      'Satellit': sat
+      'Map': base,
+      'Satellite': sat
     }
 
     let overlayLayers = {
-      'Straßen': roads
+      'Overlay Roads': roads
     }
 
     $scope.gasMarker = L.icon({
