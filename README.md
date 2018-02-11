@@ -1,6 +1,6 @@
 ![Banner](resources/img/banner.png)
 
-# RealLifeRPGLauncher
+# PsisynLife Launcher
 
 ![alt tag](https://travis-ci.org/A3ReallifeRPG/RealLifeRPGLauncher.svg?branch=master) [![GitHub release](https://img.shields.io/github/release/A3ReallifeRPG/RealLifeRPGLauncher.svg)](https://github.com/A3ReallifeRPG/RealLifeRPGLauncher/releases/latest) [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Github All Releases](https://img.shields.io/github/downloads/A3ReallifeRPG/RealLifeRPGLauncher/total.svg)](https://github.com/A3ReallifeRPG/RealLifeRPGLauncher/releases)
 

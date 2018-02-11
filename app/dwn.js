@@ -143,7 +143,7 @@ const quickCheckList = (args) => {
 }
 
 const listDiff = (list, basepath, mod, callback) => {
-  changeStatus(true, 'Prüfe auf überflüssige Dateien...', 'Prüfung...')
+  changeStatus(true, 'Check unnecessary files', 'Checking if you have any unnecessary files in your mods.')
   let modlist = []
   list.forEach((cur, i) => {
     modlist.push(basepath + cur.RelativPath)
@@ -158,7 +158,7 @@ const listDiff = (list, basepath, mod, callback) => {
 }
 
 const removeFilesList = (list, callback) => {
-  changeStatus(true, list.length + ' Dateien werden gelöscht...', 'Lösche...')
+  changeStatus(true, list.length + 'Files are deleted', 'Delete')
   list.forEach((cur, i) => {
     try {
       fs.unlinkSync(cur)
@@ -352,12 +352,12 @@ const initTorrent = (folder, torrentURL) => {
         clearInterval(update)
         cancelled()
       })
-      changeStatus(false, 'Abgeschlossen - Prüfung ausstehend', 'Inaktiv')
+      changeStatus(false, 'Completed - Exam pending', 'Inactive')
     })
   })
 
   client.on('error', (err) => {
-    changeStatus(false, 'Torrent - Fehler', 'Fataler Fehler')
+    changeStatus(false, 'Torrent - Error', 'Fatal Error')
     console.log(err)
   })
 }

@@ -95,6 +95,9 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <span class="time"></span>
+                    </li>
                     <p class="navbar-text" ng-show="logged_in"><img ng-src="{{player_data.avatar}}" height="31" width="31"></p>
                     <li class="dropdown" ng-show="logged_in">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{player_data.profilename}} <span class="caret"></span></a>
@@ -106,13 +109,13 @@
                         <a class="updating"><img src="resources/loading/ring-alt.svg"></a>
                     </li>
                     <li>
-                        <a ng-click="login()" ng-if="!logged_in && !logging_in"><span class="glyphicon glyphicon-log-in"></span></a>
+                        <a ng-click="login()" ng-if="!logged_in && !logging_in"><span class="glyphicon glyphicon-log-in" title="Login"></span></a>
                     </li>
                     <li>
-                        <a href="ts3server://ts.realliferpg.de?port=9987" title="Teamspeak"><i class="fa fa-microphone" aria-hidden="true"></i></a>
+                        <a href="ts3server://66.70.181.165?port=9987" title="Teamspeak"><i class="fa fa-microphone" aria-hidden="true"></i></a>
                     </li>
                     <li>
-                        <a href="https://donate.realliferpg.de/" title="Spenden"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                        <a href="https://psisyn.com/forums/index.php?/store/" title="Store"><i class="fa fa-heart" aria-hidden="true"></i></a>
                     </li>
                     <li>
                         <a ng-click="tourApp()" title="Tutorial"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
@@ -226,7 +229,7 @@
                     <div id="servers">
                         <div style="padding: 0px 40px;">
                             <div class="row" ng-controller="serverCtrl" data-ng-init="init()">
-                                <h3>ReallifeRPG Server</h3>
+                                <h3>PsisynLife Server</h3>
                                 <hr>
                                 <div class="page">
                                     <div style="text-align: center" ng-show="loading">
@@ -326,9 +329,8 @@
                                 <br>
                                 <div style="text-align: center" ng-if="!logged_in">
                                     <div class="jumbotron">
-                                        <h4><a href="" ng-click="login()">Logge</a> dich oben Rechts im Launcher mit deinem API Schlüssel aus dem <a href="https://info.realliferpg.de/">Infopanel</a> ein.</h4>
+                                        <h4><a href="" ng-click="login()">Login</a> With your login token on the launcher <a href="https://app.psisyn.com/">website</a>.</h4>
                                     </div>
-                                    <img src="resources/img/api_key_showcase.png">
                                 </div>
                                 <div id="playerScroll" style="height: 550px;position: relative;">
                                     <div ng-if="logged_in">
@@ -450,21 +452,15 @@
                 <div class="item">
                     <div id="changelog">
                         <div style="padding: 0px 40px; overflow-x: auto;" ng-controller="changelogCtrl" data-ng-init="init()">
-                            <h3>ReallifeRPG Changelog</h3>
-                            <hr>
+                            <h3>Psisyn Life Changelog</h3>
                             <div class="page mainDiv">
-                                <div class="row" id="changelogScroll">
-                                    <div class="col-md-3">
-                                        <div class="list-group">
-                                            <a class="list-group-item" ng-repeat="changelog in changelogs" href="#{{changelog.id}}">{{changelog.version}} - {{changelog.release_at}}</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-9">
+                                <div class="row" id="changelogScroll" style="max-height: calc(100vh - 120px);margin-bottom: 40px;overflow-y: scroll;">
+                                    <div class="col-md-12">
                                         <div class="panel-group" id="changelogAccordion">
                                             <div class="panel panel-default" ng-repeat="changelog in changelogs">
-                                                <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#changelogAccordion" data-target="#change{{changelog.id}}">
+                                                <div class="panel-heading accordion-toggle question-toggle collapsed custom-accordion" data-toggle="collapse" data-parent="#changelogAccordion" data-target="#change{{changelog.id}}">
                                                     <h4 class="panel-title">
-                                                        <span class="htop" id="{{changelog.id}}">Update {{changelog.version}}</span> <span class="pull-right">{{changelog.release_at}}</span>
+                                                        <span class="htop" id="{{changelog.id}}">Version {{changelog.version}}</span> <span class="pull-right">Released: {{changelog.release_at}}</span>
                                                     </h4>
                                                 </div>
                                                 <div id="change{{changelog.id}}" class="panel-collapse collapse" style="height: 0;">
@@ -489,14 +485,13 @@
                                                                 <li ng-repeat="content in changelog.change_mod">{{content}}</li>
                                                             </ul>
                                                         </div>
-                                                        <code ng-if="changelog.note != ''">{{changelog.note}}</code>
+                                                        <div class="note" ng-if="changelog.note != ''">Note: {{changelog.note}}</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
                             </div>
                         </div>
                     </div>
@@ -820,7 +815,7 @@
                 <div class="item">
                     <div id="about">
                         <div class="mainDiv" style="padding: 0px 40px;" ng-controller="aboutCtrl" data-ng-init="init()">
-                            <h3>Über</h3>
+                            <h3>About</h3>
                             <hr>
                             <div class="page" style="position: relative;" id="aboutScroll">
                                 <div class="row">

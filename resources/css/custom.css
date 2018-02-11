@@ -45,7 +45,7 @@ button, a{
 .carousel-inner {
     position: relative;
     width: 100%;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 50px);
     overflow: hidden;
 }
 
@@ -315,7 +315,7 @@ span.htop:before {
 }
 
 .page {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 50px);
     overflow-y: auto;
 }
 
@@ -337,3 +337,21 @@ span.htop:before {
     background: #C7E6FC !important;
 }
 
+.custom-accordion{
+    background-color: #fafafa !important;
+    color: #222 !important;
+    cursor: pointer;
+}
+.custom-accordion .collapsed {
+    -webkit-border-radius: 10px !important;
+    -moz-border-radius: 10px !important;
+    border-radius: 10px !important;
+}
+.note{
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+    
+}

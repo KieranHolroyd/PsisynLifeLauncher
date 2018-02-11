@@ -76,8 +76,8 @@ const App = angular.module('App', ['720kb.tooltips']).run(($rootScope) => {
   }
 
   $rootScope.login = () => {
-    alertify.set({labels: {ok: 'Ok', cancel: 'Abbrechen'}})
-    alertify.prompt('Please insert your login key', (e, str) => {
+    alertify.set({labels: {ok: 'Login', cancel: 'Cancel'}})
+    alertify.prompt('Please insert your login token', (e, str) => {
       if (e) {
         if (str) {
           $.ajax({
