@@ -35,7 +35,7 @@ angular.module('App').controller('modCtrl', ['$scope', '$rootScope', ($scope, $r
           totalSize: prettyBytes(args.state.totalSize),
           totalDownloaded: prettyBytes(args.state.totalDownloaded + args.state.size.transferred),
           totalETA: humanizeDuration(Math.round(((args.state.totalSize - (args.state.totalDownloaded + args.state.size.transferred)) / args.state.speed) * 1000), {
-            language: 'de',
+            language: 'en',
             round: true
           }),
           totalPeers: 0,

@@ -66,7 +66,7 @@ autoUpdater.checkForUpdates()
 
 switch (process.argv[1]) {
   case '--open-website':
-    shell.openExternal('https://realliferpg.de')
+    shell.openExternal('https://psisyn.com')
     app.quit()
     break
   case '--open-teamspeak':
@@ -80,7 +80,7 @@ let win, downWin, webWin, loadWin, child
 const createWindows = () => {
   // web process
   webWin = new BrowserWindow({
-    icon: 'resources/icon/workericon.ico',
+    icon: path.join(__dirname, 'resources/icon/tray.png'),
     width: 1000,
     height: 500,
     show: false,
@@ -91,9 +91,6 @@ const createWindows = () => {
     app.quit()
   })
   webWin.loadURL(`file://${__dirname}/app/web.html`)
-  webWin.webContents.openDevTools({
-    detach: false
-  })
 
   // download process
   downWin = new BrowserWindow({
@@ -108,13 +105,10 @@ const createWindows = () => {
     app.quit()
   })
   downWin.loadURL(`file://${__dirname}/app/dwn.html`)
-  downWin.webContents.openDevTools({
-    detach: false
-  })
 
   // Create the browser window.
   win = new BrowserWindow({
-    icon: 'resources/icon/appicon.ico',
+    icon: 'resources/icon/appicon.png',
     width: 1320,
     height: 730,
     minWidth: 1320,
@@ -169,7 +163,7 @@ const createWindows = () => {
   })
 
   loadWin = new BrowserWindow({
-    icon: 'resources/icon/appicon.ico',
+    icon: 'resources/icon/appicon.png',
     width: 300,
     height: 310,
     frame: false,
@@ -187,10 +181,11 @@ const createWindows = () => {
 }
 
 const createTray = () => {
-  tray = new Tray(app.getAppPath() + '\\resources\\icon\\tray.ico')
+  const trayIcon = path.join(__dirname, 'resources/icon/tray.png');
+  tray = new Tray(trayIcon);
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Auf Updates prüfen',
+      label: 'Check For Updates',
       click: () => {
         if (typeof process.env.PORTABLE_EXECUTABLE_DIR !== 'undefined') {
           dialog.showMessageBox({
@@ -230,13 +225,13 @@ const createTray = () => {
       type: 'separator'
     },
     {
-      label: 'Beenden',
+      label: 'Close Launcher',
       click: () => {
         app.quit()
       }
     }
   ])
-  tray.setToolTip('RealLifeRPG Launcher')
+  tray.setToolTip('PsisynLife Launcher')
   tray.setContextMenu(contextMenu)
   tray.on('click', () => {
     win.isMinimized() ? win.restore() : win.minimize()
